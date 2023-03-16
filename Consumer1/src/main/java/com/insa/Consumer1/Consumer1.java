@@ -34,6 +34,7 @@ public class Consumer1 {
             // parse global data
             JsonNode globalNode = rootNode.get("Global");
             Global global = mapper.treeToValue(globalNode, Global.class);
+            globalRepository.deleteAll();
             globalRepository.save(global);
 
             // parse countries data
@@ -43,6 +44,7 @@ public class Consumer1 {
                 Country country = mapper.treeToValue(countryNode, Country.class);
                 countries.add(country);
             }
+            countryRepository.deleteAll();
             countryRepository.saveAll(countries);
 
         } catch (Exception e) {
