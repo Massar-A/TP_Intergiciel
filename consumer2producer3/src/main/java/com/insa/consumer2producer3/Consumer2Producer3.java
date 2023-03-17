@@ -1,7 +1,5 @@
 package com.insa.consumer2producer3;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import com.insa.consumer2producer3.countries.Country;
 import com.insa.consumer2producer3.countries.CountryRepository;
@@ -9,10 +7,12 @@ import com.insa.consumer2producer3.data.Data;
 import com.insa.consumer2producer3.global.Global;
 import com.insa.consumer2producer3.global.GlobalRepository;
 import org.apache.kafka.common.protocol.types.Field;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.annotation.KafkaListener;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 
-import java.io.File;
+import javax.crypto.spec.PSource;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.text.SimpleDateFormat;
@@ -20,19 +20,26 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class Consumer2 {
+public class Consumer2Producer3 {
 
     private final CountryRepository countryRepository;
     private final GlobalRepository globalRepository;
 
-    public Consumer2(CountryRepository countryRepository, GlobalRepository globalRepository) {
+    @Autowired
+    KafkaTemplate<String, String> kafkaTemplate;
+
+    public Consumer2Producer3(CountryRepository countryRepository, GlobalRepository globalRepository) {
         this.countryRepository = countryRepository;
         this.globalRepository = globalRepository;
     }
 
     @KafkaListener(topics = "topic-2", groupId = "cs2")
     public void consume(String message) throws Exception {
-        System.out.println(processCommand(message).get(1));
+        List<String> result = processCommand(message);
+
+        kafkaTemplate.send("topic-3", String.join(",", result));
+
+        System.out.println("Réponse envoyée au topic-3 avec succès");
     }
 
     public List<String> processCommand(String command) throws Exception {
