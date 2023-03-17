@@ -1,5 +1,11 @@
 version: "3.1"
 services:
+  cs3pr2:
+    image: cs3pr2
+    ports:
+    - 8080:8080/tcp
+    expose:
+    - 8080
   db:
     image: postgres
     environment:
