@@ -55,4 +55,18 @@ public class Global {
     public Global() {
         super();
     }
+
+    @Override
+    public String toString() {
+        return "Global{" +
+                "id=" + id +
+                ", Date=" + Date +
+                ", NewConfirmed=" + NewConfirmed +
+                ", TotalConfirmed=" + TotalConfirmed +
+                ", NewDeaths=" + NewDeaths +
+                ", TotalDeaths=" + TotalDeaths +
+                ", NewRecovered=" + NewRecovered +
+                ", TotalRecovered=" + TotalRecovered +
+                '}';
+    }
 }
