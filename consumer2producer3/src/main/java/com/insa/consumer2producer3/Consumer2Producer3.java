@@ -37,7 +37,7 @@ public class Consumer2Producer3 {
     public void consume(String message) throws Exception {
         List<String> result = processCommand(message);
 
-        kafkaTemplate.send("topic-3", String.join(",", result));
+        kafkaTemplate.send("topic-3", String.join(";", result));
 
         System.out.println("Réponse envoyée au topic-3 avec succès");
     }
@@ -46,13 +46,13 @@ public class Consumer2Producer3 {
         String[] tokens = command.split(" ");
         List<String> list = new ArrayList<>();
         list.add(tokens[0]);
-        switch (tokens[0]) {
+        switch (tokens[0].toLowerCase()) {
 
-            case "Get_global_values":
+            case "get_global_values":
                 // Appeler la méthode appropriée de GlobalRepository pour récupérer les valeurs globales
                 list.add(globalRepository.findAll().toString());
                 return list;
-            case "Get_country_values":
+            case "get_country_values":
                 // Appeler la méthode appropriée de CountryRepository pour récupérer les valeurs du pays demandé
                 if (tokens.length < 2) {
                     list.add("Le nom du pays doit être spécifié.");
@@ -61,29 +61,30 @@ public class Consumer2Producer3 {
                 String countryName = tokens[1];
                 list.add(countryRepository.findCountryByCountryNameIgnoreCase(countryName).toString());
                 return list;
-            case "Get_confirmed_avg":
+            case "get_confirmed_avg":
                 // Appeler la méthode appropriée de CountryRepository pour récupérer la moyenne des cas confirmés
                 list.add(countryRepository.getAverageConfirmed().toString());
                 return list;
-            case "Get_deaths_avg":
+            case "get_deaths_avg":
                 // Appeler la méthode appropriée de CountryRepository pour récupérer la moyenne des décès
                 list.add(countryRepository.getAverageDeaths().toString());
                 return list;
-            case "Get_countries_deaths_percent":
+            case "get_countries_deaths_percent":
                 // Appeler la méthode appropriée de CountryRepository pour récupérer le pourcentage de décès par rapport aux cas confirmés
                 list.add(globalRepository.getDeathPercentage().toString());
                 return list;
-            case "Export":
+            case "export":
                 // Appeler la méthode appropriée de CountryRepository pour exporter les données en XML
                 // Retourner un message indiquant que l'export a été effectué
                 list.add(exportToXml());
                 return list;
-            case "Help":
+            case "help":
                 // Retourner une liste des commandes et une explication
                 list.add("Liste des commandes : \n"
                         + "- Get_global_values (retourne les valeurs globales clés Global du fichier json)\n"
-                        + "- Get_country_values v_pays (retourne les valeurs du pays demandé ou v_pays est une chaine de caractère du pays demandé)\n"
-                        + "- Get_confirmed_avg (retourne une moyenne des cas confirmés sum(pays)/nb(pays))\n"
+                        + "- Get_country_values nom_pays (retourne les valeurs du pays demandé)\n"
+                        + "- Get_confirmed_avg (retourne une moyenne des cas confirmés)\n"
+                        + "- Export (permet de télécharger les données au format XML)\n"
 );
                 return list;
             default:
