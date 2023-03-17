@@ -13,6 +13,9 @@ public class ConsoleController {
     @Autowired
     private KafkaTemplate<String, String> kafkaTemplate;
 
+    @Autowired
+    private Consumer3 cs3;
+
     public ConsoleController(KafkaTemplate<String, String> kafkaTemplate) {
         super();
         this.kafkaTemplate = kafkaTemplate;
@@ -21,7 +24,8 @@ public class ConsoleController {
     @PostMapping("command")
     public ResponseEntity<String> sendCommand(@RequestBody String command) {
         kafkaTemplate.send("topic-2", command);
-        return ResponseEntity.ok("Commande envoyée avec succès !" + command);
+        String result = cs3.getLastResult();
+        return ResponseEntity.ok("Commande envoyée avec succès ! Résultat" + result);
     }
 }
 
