@@ -19,7 +19,7 @@ public class Producer1 {
 
     private WebClient webClient = WebClient.builder().build();
 
-    @Scheduled(fixedRate = 60000) // Exécute la méthode toutes les 30 minutes
+    @Scheduled(fixedRate = 18000000) // Exécute la méthode toutes les 30 minutes
     public void produce() {
         System.out.printf("retrieve data from api covid19");
         webClient.get()
