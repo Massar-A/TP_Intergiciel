@@ -9,6 +9,8 @@
 
 ### a. Construire l'image docker du projet Java
 
+Toutes les commandes sont à faire à la racine du projet.
+
 Afin de construire l'image docker du projet, lancez la commande suivante :
 
 ````shell
@@ -29,7 +31,7 @@ docker-compose up
 
 ### c. Tests sur Postman
 
-Importez le fichier `Kafka.postman_collection.json` dans Postman.
+Importez le fichier `Kafka.postman_collection.json` dans Postman. Il se trouve à la racine du projet.
 
 ![img.png](img.png)
 
