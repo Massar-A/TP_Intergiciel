@@ -3,7 +3,7 @@
 ### Développeurs :
 
 - Massar ABBAS - [massar.abbas@uphf.fr](mailto:massar.abbas@uphf.fr) - 22105551
-- Elliott ATTENBOROUGH - [elliott.attenborough@uphf.fr](mailto:elliott.attenborough@uphf.fr) - <n° étudiant à mettre>
+- Elliott ATTENBOROUGH - [elliott.attenborough@uphf.fr](mailto:elliott.attenborough@uphf.fr) - 22105897
 
 ## 1. Exécution du projet
 Toutes les commandes sont à faire à la racine du projet.
