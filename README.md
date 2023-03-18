@@ -6,10 +6,9 @@
 - Elliott ATTENBOROUGH - [elliott.attenborough@uphf.fr](mailto:elliott.attenborough@uphf.fr) - <n° étudiant à mettre>
 
 ## 1. Exécution du projet
+Toutes les commandes sont à faire à la racine du projet.
 
 ### a. Construire l'image docker du projet Java
-
-Toutes les commandes sont à faire à la racine du projet.
 
 Afin de construire l'image docker du projet, lancez la commande suivante :
 
